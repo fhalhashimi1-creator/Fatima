@@ -34,7 +34,7 @@ def explain(index: dict, query: str, *, endpoint: str | None = None, model: str 
     if os.getenv('CODEGRAPH_LLM_KEY'):
         headers['Authorization'] = 'Bearer ' + os.environ['CODEGRAPH_LLM_KEY']
     req = Request(endpoint, data=body, headers=headers, method='POST')
-    with urlopen(req, timeout=60) as response:
+    with urlopen(req, timeout=180) as response:
         data = json.load(response)
     result['explanation'] = data['choices'][0]['message']['content']
     result['model_used'] = True
