@@ -5,7 +5,7 @@ CodeGraph AI is a Python-based project that helps developers locate relevant sou
 Features
 
 * Python Code Search: Find source files relevant to natural-language questions.
-* Gemini AI Integration: Generate explanations of search results using Google’s Gemini API.
+* Local AI Integration: Generate AI-powered explanations using Gemma 3:1b through Ollama and an OpenAI-compatible API.
 * File Ranking: Identify and rank relevant Python files.
 * Command-Line Interface: Run code searches directly from the terminal.
 * Modular Architecture: Separate search, evaluation, and AI explanation components.
@@ -13,7 +13,9 @@ Features
 Technologies Used
 
 * Python
-* Google Gemini API
+* Gemma 3:1b (Local AI Model)
+* Ollama (Local AI Runtime)
+* OpenAI-Compatible REST API
 * REST APIs
 * JSON
 * Git and GitHub
@@ -49,3 +51,44 @@ Project Purpose
 
 This project demonstrates practical skills in Python programming, API integration, AI-assisted development, code search, and software engineering.
 
+
+## Local AI Setup (Gemma 3)
+
+CodeGraph AI supports local AI-powered explanations using Ollama and Gemma 3:1b.
+
+### 1. Install Ollama
+Visit https://ollama.com to install Ollama.
+
+### 2. Download the AI Model
+```bash
+ollama pull gemma3:1b
+```
+
+### 3. Start Ollama
+```bash
+ollama serve
+```
+
+### 4. Configure CodeGraph AI
+In a separate terminal, run:
+
+```bash
+export CODEGRAPH_LLM_URL="http://localhost:11434/v1/chat/completions"
+export CODEGRAPH_LLM_MODEL="gemma3:1b"
+```
+
+### 5. Run CodeGraph AI
+From the repository root:
+
+```bash
+python -m codegraph.Codegraph . "Where is the search function implemented?" --explain
+```
+
+The output includes relevant source files and an AI-generated explanation when the model is available.
+
+### Run Automated Tests
+```bash
+python -m unittest discover -s tests -v
+```
+
+The automated tests use mocked AI responses and do not require Ollama to be running.
