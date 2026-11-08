@@ -102,7 +102,7 @@ output = {
 
 if args.explain:
     from .agent import explain
-    output['explanation'] = explain(args.query, results)
+    output['explanation'] = explain(index, args.query, limit=args.limit)
 
 print(json.dumps(output, indent=2))
 if __name__ == '__main__':
