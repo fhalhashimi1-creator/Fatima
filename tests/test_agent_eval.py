@@ -66,6 +66,27 @@ class AgentEvaluationTests(unittest.TestCase):
             evaluate(self.root, [])
 
 
+    def test_ai_response_format(self):
+        from io import BytesIO
+        from unittest.mock import MagicMock
+
+        mock_response = MagicMock()
+        mock_response.__enter__.return_value = BytesIO(
+            b'{"choices":[{"message":{"content":"Inspect login.py first."}}]}'
+        )
+
+        with patch("codegraph.Codegraph.agent.urlopen", return_value=mock_response):
+            result = explain(
+                build_index(self.root),
+                "login",
+                endpoint="http://localhost:11434/v1/chat/completions",
+                model="gemma3:1b"
+            )
+
+        self.assertTrue(result["model_used"])
+        self.assertEqual(result["model_name"], "gemma3:1b")
+        self.assertEqual(result["explanation"], "Inspect login.py first.")
+
 if __name__ == "__main__":
     unittest.main()
     
