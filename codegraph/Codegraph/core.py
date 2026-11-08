@@ -90,9 +90,20 @@ def main() -> None:
     parser.add_argument('query', help='Natural-language developer question')
     parser.add_argument('--limit', type=int, default=5)
     parser.add_argument('--baseline', action='store_true', help='Disable graph propagation')
+    parser.add_argument('--explain', action='store_true', help='Generate an AI explanation of search results')
     args = parser.parse_args()
-    index = build_index(args.repository)
-    print(json.dumps({'indexed_files': len(index['files']), 'results': search(index, args.query, args.limit, 0 if args.baseline else 0.35)}, indent=2))
+   index = build_index(args.repository)
+results = search(index, args.query, args.limit, 0 if args.baseline else 0.35)
 
+output = {
+    'indexed_files': len(index['files']),
+    'results': results
+}
+
+if args.explain:
+    from .agent import explain
+    output['explanation'] = explain(args.query, results)
+
+print(json.dumps(output, indent=2))
 if __name__ == '__main__':
     main()
