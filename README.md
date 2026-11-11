@@ -47,6 +47,68 @@ The CodeGraph analysis engine, PayPal Sandbox payment workflow, and Gemini repor
 
 The integrated, reusable application and automated report-unlocking workflow are being prepared for the final demonstration.
 
+
+## Setup Instructions
+
+### Requirements
+- Python 3.10 or newer
+- Git
+- PayPal Developer Sandbox account
+- Google Gemini API key
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/fhalhashimi1-creator/Fatima.git
+cd Fatima
+```
+
+### 2. Run CodeGraph AI
+
+```bash
+python -m codegraph.Codegraph . index --limit 3
+```
+
+### 3. Configure PayPal Sandbox
+
+1. Create a Sandbox application at https://developer.paypal.com/
+2. Obtain your Sandbox Client ID and Client Secret.
+3. Store these credentials securely using Google Colab Secrets.
+
+Required secret names:
+- `PAYPAL_CLIENT_ID`
+- `PAYPAL_CLIENT_SECRET`
+- `PAYPAL_ORDER_ID`
+
+The order ID must belong to a successfully captured Sandbox payment.
+
+### 4. Configure Google Gemini
+
+1. Obtain a Gemini API key from https://aistudio.google.com/
+2. Save it in Google Colab Secrets as `GEMINI_API_KEY`.
+3. Grant the notebook permission to access the secrets.
+
+### 5. Generate a Smart Code Passport
+
+Run the CodeGraph analysis, verify the completed PayPal Sandbox payment, and generate an AI report using Gemini.
+
+The premium integration is a prototype demonstrated in Google Colab. A completed Sandbox payment and valid API credentials are required to reproduce the premium workflow.
+
+### Technologies Used
+
+- Python
+- Google Gemini AI
+- PayPal REST API and Sandbox
+- Google Colab
+- GitHub
+- OAuth 2.0
+- JSON and Markdown
+
+### License
+
+This project is licensed under the MIT License. See the `LICENSE` file.
+  
+
 Source Code
 
 https://github.com/fhalhashimi1-creator/Fatima
